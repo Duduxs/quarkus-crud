@@ -11,15 +11,15 @@ import javax.ws.rs.core.MediaType;
 import org.acme.getting.started.entities.Client;
 import org.acme.getting.started.services.ClientService;
 
-@Path("/hello")
+@Path("/clients")
 public class GreetingResource {
 
 	@Inject
 	private ClientService service;
 	
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public List<Client> hello() {
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Client> findAll() {
         return service.findAll();
     }
 }
