@@ -37,6 +37,13 @@ public class CityResource {
 	public Response getAll(@BeanParam PageRequest pageRequest) {
 		return cityService.getAll(pageRequest);
 	}
+	
+	@GET
+	@Path("{id}")
+	@Transactional
+	public Response getAllByStateId(@PathParam("id")Long id, @BeanParam PageRequest pageRequest) {
+		return cityService.getAllByStateId(id, pageRequest);
+	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)

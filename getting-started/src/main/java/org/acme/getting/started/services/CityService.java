@@ -31,6 +31,15 @@ public class CityService {
 				.ok(cityRepository.findAll().page(Page.of(pageRequest.getPageNum(), pageRequest.getPageSize())).list())
 				.build();
 	}
+	
+	public Response getAllByStateId(Long id, PageRequest pageRequest) {
+		if (stateRepository.findById(id) == null)
+			throw new WebApplicationException("State not found!", Response.Status.NOT_FOUND);
+		
+		return Response
+				.ok(cityRepository.find("state.id", id).page(Page.of(pageRequest.getPageNum(), pageRequest.getPageSize())).list())
+				.build();
+	}
 
 	public Response persist(City city) {
 		if (stateRepository.findById(city.getState().getId()) == null)
