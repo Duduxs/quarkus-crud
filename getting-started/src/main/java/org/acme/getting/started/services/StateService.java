@@ -9,7 +9,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.acme.getting.started.entities.State;
-import org.acme.getting.started.pages.PageRequest;
+import org.acme.getting.started.pages.*;
 import org.acme.getting.started.repositories.StateRepository;
 
 import io.quarkus.panache.common.Page;

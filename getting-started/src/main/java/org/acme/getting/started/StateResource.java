@@ -24,8 +24,8 @@ import org.jboss.resteasy.annotations.jaxrs.PathParam;
 @Produces(MediaType.APPLICATION_JSON)
 public class StateResource {
 
-	 @Context
-	  UriInfo uriInfo;
+	@Context
+	UriInfo uriInfo;
 
 	@Inject
 	StateService stateService;

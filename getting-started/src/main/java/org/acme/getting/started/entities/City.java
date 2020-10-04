@@ -6,28 +6,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_state")
-public class State implements Serializable {
+@Table(name = "tb_city")
+public class City implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private String region;
-
-	public State() {
+	
+	@OneToOne
+	private State state;
+	
+	public City() {
 		
 	}
 
-	public State(Long id, String name, String region) {
+	public City(Long id, String name, State state) {
 		this.id = id;
 		this.name = name;
-		this.region = region;
+		this.state = state;
 	}
 
 	public Long getId() {
@@ -46,13 +48,13 @@ public class State implements Serializable {
 		this.name = name;
 	}
 
-	public String getRegion() {
-		return region;
+	public State getState() {
+		return state;
 	}
-	
-	public void setRegion(String region) {
-		this.region = region;
-	}	
+
+	public void setState(State state) {
+		this.state = state;
+	}
 
 	@Override
 	public int hashCode() {
@@ -70,7 +72,7 @@ public class State implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		State other = (State) obj;
+		City other = (City) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
