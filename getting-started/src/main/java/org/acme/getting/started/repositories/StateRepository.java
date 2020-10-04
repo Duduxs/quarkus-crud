@@ -1,8 +1,13 @@
 package org.acme.getting.started.repositories;
 
-import org.acme.getting.started.entities.State;
-import org.springframework.data.jpa.repository.JpaRepository;
+import javax.enterprise.context.ApplicationScoped;
 
-public interface StateRepository extends JpaRepository<State, Long>{
+import org.acme.getting.started.entities.State;
+
+import io.quarkus.hibernate.orm.panache.PanacheRepository;
+
+@ApplicationScoped
+public class StateRepository implements PanacheRepository<State>{
+
 
 }

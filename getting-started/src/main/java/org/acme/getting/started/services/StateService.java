@@ -1,14 +1,13 @@
 package org.acme.getting.started.services;
 
-import java.util.List;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
+import javax.ws.rs.core.Response;
 
-import org.acme.getting.started.entities.State;
+import org.acme.getting.started.pages.PageRequest;
 import org.acme.getting.started.repositories.StateRepository;
 
+import io.quarkus.panache.common.Page;
 
 @ApplicationScoped
 public class StateService {
@@ -16,8 +15,14 @@ public class StateService {
 	@Inject
 	StateRepository stateRepository;
 	
-	@Transactional
-	public List<State> findAll(){
-		return stateRepository.findAll();
+	public Long count() {
+		return stateRepository.count();
+	}
+	
+
+	public Response getAll(PageRequest pageRequest) {
+	    return Response
+	    	.ok(stateRepository.findAll().page(Page.of(pageRequest.getPageNum(), pageRequest.getPageSize())).list())
+			.build();
 	}
 }
