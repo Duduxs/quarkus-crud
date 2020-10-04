@@ -8,6 +8,5 @@ import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 @ApplicationScoped
 public class StateRepository implements PanacheRepository<State>{
-
-
+	
 }
