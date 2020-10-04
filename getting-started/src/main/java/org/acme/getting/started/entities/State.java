@@ -2,22 +2,32 @@ package org.acme.getting.started.entities;
 
 import java.io.Serializable;
 
-public class Client implements Serializable{
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tb_state")
+public class State implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private String email;
+	private String region;
 	
-	public Client() {
+	public State() {
 		
 	}
 
-	public Client(Long id, String name, String email) {
+	public State(Long id, String name, String region) {
 		this.id = id;
 		this.name = name;
-		this.email = email;
+		this.region = region;
 	}
 
 	public Long getId() {
@@ -36,14 +46,13 @@ public class Client implements Serializable{
 		this.name = name;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getRegion() {
+		return region;
 	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	
+	public void setRegion(String region) {
+		this.region = region;
 	}
-
 
 
 	@Override
@@ -62,7 +71,7 @@ public class Client implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Client other = (Client) obj;
+		State other = (State) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

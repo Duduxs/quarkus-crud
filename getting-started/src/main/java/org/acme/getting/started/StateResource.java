@@ -8,18 +8,18 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.acme.getting.started.entities.Client;
-import org.acme.getting.started.services.ClientService;
+import org.acme.getting.started.entities.State;
+import org.acme.getting.started.services.StateService;
 
-@Path("/clients")
-public class GreetingResource {
+@Path("/states")
+public class StateResource {
 
 	@Inject
-	private ClientService service;
+	StateService service;
 	
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Client> findAll() {
+    public List<State> findAll() {
         return service.findAll();
     }
 }
