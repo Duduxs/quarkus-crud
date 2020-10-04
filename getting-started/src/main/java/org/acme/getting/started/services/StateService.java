@@ -19,44 +19,41 @@ public class StateService {
 
 	@Inject
 	StateRepository stateRepository;
-	
+
 	public Long count() {
 		return stateRepository.count();
 	}
-	
+
 	public Response getAll(PageRequest pageRequest) {
-	    return Response
-	    	.ok(stateRepository.findAll().page(Page.of(pageRequest.getPageNum(), pageRequest.getPageSize())).list())
-			.build();
+		return Response
+				.ok(stateRepository.findAll().page(Page.of(pageRequest.getPageNum(), pageRequest.getPageSize())).list())
+				.build();
 	}
-	
-	public Response persist(State state, UriInfo uriInfo ) {
+
+	public Response persist(State state, UriInfo uriInfo) {
 		stateRepository.persist(state);
 		
-		URI uri = uriInfo.getAbsolutePathBuilder()
-	            .path("{id}")
-	            .resolveTemplate("id", state.getId())
-	            .build();
-		
+		URI uri = uriInfo.getAbsolutePathBuilder().path("{id}").resolveTemplate("id", state.getId()).build();
+
 		return Response.created(uri).build();
 	}
-	
+
 	public Response update(Long id, State state) {
 		State updateState = stateRepository.findById(id);
-		
-		if(stateRepository.findById(id) == null)
+
+		if (stateRepository.findById(id) == null)
 			throw new WebApplicationException("State not found!", Response.Status.NOT_FOUND);
-		
+
 		updateState.setName(state.getName());
 		updateState.setRegion(state.getRegion());
-		
+
 		return Response.ok(updateState).build();
 	}
-	
+
 	public Response delete(Long id) {
-		if(stateRepository.findById(id) == null)
+		if (stateRepository.findById(id) == null)
 			throw new WebApplicationException("State not found!", Response.Status.NOT_FOUND);
-		
+
 		stateRepository.deleteById(id);
 		return Response.noContent().build();
 	}

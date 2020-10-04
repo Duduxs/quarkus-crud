@@ -2,6 +2,7 @@ package org.acme.getting.started;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -13,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.acme.getting.started.entities.City;
+import org.acme.getting.started.pages.PageRequest;
 import org.acme.getting.started.services.CityService;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
@@ -28,6 +30,12 @@ public class CityResource {
 	@Transactional
 	public long count() {
 		return cityService.count();
+	}
+	
+	@GET
+	@Transactional
+	public Response getAll(@BeanParam PageRequest pageRequest) {
+		return cityService.getAll(pageRequest);
 	}
 
 	@POST
