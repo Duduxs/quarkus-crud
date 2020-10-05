@@ -11,6 +11,7 @@ import org.acme.getting.started.pages.PageRequest;
 import org.acme.getting.started.repositories.CityRepository;
 import org.acme.getting.started.repositories.StateRepository;
 
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Page;
 
 @ApplicationScoped
@@ -21,7 +22,7 @@ public class CityService {
 
 	@Inject
 	CityRepository cityRepository;
-
+	
 	public long count() {
 		return cityRepository.count();
 	}
@@ -38,6 +39,18 @@ public class CityService {
 		
 		return Response
 				.ok(cityRepository.find("state.id", id).page(Page.of(pageRequest.getPageNum(), pageRequest.getPageSize())).list())
+				.build();
+	}
+	
+	public Response getAllByCityName(String name, PageRequest pageRequest) {
+		if (cityRepository.find("name", name).firstResult() == null)
+			throw new WebApplicationException("Name not found!", Response.Status.NOT_FOUND);
+			
+		PanacheQuery<City> city = cityRepository.find("name", name);
+		//city.stream().forEach(x -> x.setName(x.getName().substring(3)));
+	
+		return Response
+				.ok(city.page(Page.of(pageRequest.getPageNum(), pageRequest.getPageSize())).list())
 				.build();
 	}
 
@@ -76,5 +89,7 @@ public class CityService {
 		cityRepository.deleteById(id);
 		return Response.noContent().build();
 	}
+
+
 
 }

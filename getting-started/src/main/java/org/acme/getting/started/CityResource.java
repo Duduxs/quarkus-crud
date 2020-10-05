@@ -44,6 +44,13 @@ public class CityResource {
 	public Response getAllByStateId(@PathParam("id")Long id, @BeanParam PageRequest pageRequest) {
 		return cityService.getAllByStateId(id, pageRequest);
 	}
+	
+	@GET
+	@Path("/find/{name}")
+	@Transactional
+	public Response getAllByCityName(@PathParam("name")String name, @BeanParam PageRequest pageRequest) {
+		return cityService.getAllByCityName(name, pageRequest);
+	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
