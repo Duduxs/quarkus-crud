@@ -24,17 +24,23 @@ public class CityService {
 	CityRepository cityRepository;
 	
 	public long count() {
+		if(cityRepository.count() == 0)
+			throw new WebApplicationException("Cities not found!", Response.Status.NOT_FOUND);
+		
 		return cityRepository.count();
 	}
 
 	public Response getAll(PageRequest pageRequest) {
+		if(cityRepository.findAll().count() == 0)
+			throw new WebApplicationException("Cities not found!", Response.Status.NOT_FOUND);
+		
 		return Response
 				.ok(cityRepository.findAll().page(Page.of(pageRequest.getPageNum(), pageRequest.getPageSize())).list())
 				.build();
 	}
 	
 	public Response getAllByStateId(Long id, PageRequest pageRequest) {
-		if (stateRepository.findById(id) == null)
+		if (cityRepository.find("state.id", id).count() == 0)
 			throw new WebApplicationException("State not found!", Response.Status.NOT_FOUND);
 		
 		return Response
@@ -43,7 +49,7 @@ public class CityService {
 	}
 	
 	public Response getAllByCityName(String name, PageRequest pageRequest) {
-		if (cityRepository.find("name", name).firstResult() == null)
+		if (cityRepository.find("name", name).count() == 0)
 			throw new WebApplicationException("Name not found!", Response.Status.NOT_FOUND);
 			
 		PanacheQuery<City> city = cityRepository.find("name", name);

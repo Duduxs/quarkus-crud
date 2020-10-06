@@ -21,10 +21,16 @@ public class StateService {
 	StateRepository stateRepository;
 
 	public Long count() {
+		if(stateRepository.count() == 0)
+			throw new WebApplicationException("States not found!", Response.Status.NOT_FOUND);
+		
 		return stateRepository.count();
 	}
 
 	public Response getAll(PageRequest pageRequest) {
+		if(stateRepository.findAll().count() == 0)
+			throw new WebApplicationException("States not found!", Response.Status.NOT_FOUND);
+		
 		return Response
 				.ok(stateRepository.findAll().page(Page.of(pageRequest.getPageNum(), pageRequest.getPageSize())).list())
 				.build();

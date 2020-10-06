@@ -1,4 +1,4 @@
-package org.acme.getting.started;
+package org.acme.getting.started.resources;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
