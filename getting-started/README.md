@@ -1,3 +1,35 @@
+# CRUD URI
+
+# State
+```
+[Get(Paginated)] http://localhost:8080/states?pageNum=0&pageSize=5
+
+[Get(Count)] http://localhost:8080/states/count
+
+[Post] http://localhost:8080/states | Suggested body:{ "name": "Acre", "region": "???" }
+
+[Put] http://localhost:8080/states/{20} | Suggested body:{ "name": "Pernambuco", "region": "Northoest" }
+
+[Delete] http://localhost:8080/states/{27} 
+```
+
+# City
+```
+[Get(Paginated)] http://localhost:8080/cities?pageNum=0&pageSize=3
+
+[Get(Count)] http://localhost:8080/cities/count
+
+[Get(ByStateId)] http://localhost:8080/cities/{3}
+
+[Get(ByName)] http://localhost:8080/cities/find/{Olinda}?pageNum=0&pageSize=3
+
+[Post] http://localhost:8080/cities | Suggested body:{ "name": "Olinda", "state": { "id": 12  } and { "name": "Recife", "state": { "id": 12  }  }
+
+[Put] http://localhost:8080/cities/{1} | Suggested body:{ "name": "Surubim", "state": { "id": 4 } }
+
+[Delete] http://localhost:8080/cities/{2}
+```
+
 # getting-started project
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
