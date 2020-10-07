@@ -29,7 +29,7 @@ public class StateResource {
 
 	@Inject
 	StateService stateService;
-	
+
 	@GET
 	@Path("/count")
 	@Transactional
@@ -39,29 +39,29 @@ public class StateResource {
 
 	@GET
 	@Transactional
-	public Response getAll(@BeanParam PageRequest pageRequest) {
-		return stateService.getAll(pageRequest);
+	public Response getAllPaged(@BeanParam PageRequest pageRequest) {
+		return stateService.getAllPaged(pageRequest);
 	}
-	
+
 	@POST
-    @Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Transactional
 	public Response persist(State state) {
 		return stateService.persist(state, uriInfo);
 	}
-	
+
 	@PUT
-    @Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("{id}")
 	@Transactional
-	public Response update(@PathParam("id")Long id, State state) {
+	public Response update(@PathParam("id") Long id, State state) {
 		return stateService.update(id, state);
 	}
-	
+
 	@DELETE
 	@Path("{id}")
 	@Transactional
-	public Response delete(@PathParam("id")Long id) {
+	public Response delete(@PathParam("id") Long id) {
 		return stateService.delete(id);
 	}
 

@@ -100,7 +100,7 @@ public class StateTest {
 	    }
 	  
 	  @Test
-	    public void testGetAllEndpoint() {
+	    public void testGetAllPagedEndpoint() {
 	        given()
 	          .when().get("/states?pageNum=0&pageSize=1")
 	          .then()

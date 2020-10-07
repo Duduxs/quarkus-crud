@@ -26,8 +26,8 @@ public class StateService {
 		
 		return stateRepository.count();
 	}
-
-	public Response getAll(PageRequest pageRequest) {
+	
+	public Response getAllPaged(PageRequest pageRequest) {
 		if(stateRepository.findAll().count() == 0)
 			throw new WebApplicationException("States not found!", Response.Status.NOT_FOUND);
 		
@@ -40,7 +40,6 @@ public class StateService {
 		stateRepository.persist(state);
 		
 		URI uri = uriInfo.getAbsolutePathBuilder().path("{id}").resolveTemplate("id", state.getId()).build();
-
 		return Response.created(uri).build();
 	}
 

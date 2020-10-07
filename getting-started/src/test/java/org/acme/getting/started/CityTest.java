@@ -47,7 +47,7 @@ public class CityTest {
 	}
 
 	  @Test
-	    public void testGetAllEndpoint() {
+	    public void testGetAllPagedEndpoint() {
 	        given()
 	          .when().get("/cities?pageNum=0&pageSize=1")
 	          .then()

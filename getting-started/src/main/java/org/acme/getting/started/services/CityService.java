@@ -22,42 +22,39 @@ public class CityService {
 
 	@Inject
 	CityRepository cityRepository;
-	
+
 	public long count() {
-		if(cityRepository.count() == 0)
+		if (cityRepository.count() == 0)
 			throw new WebApplicationException("Cities not found!", Response.Status.NOT_FOUND);
-		
+
 		return cityRepository.count();
 	}
 
-	public Response getAll(PageRequest pageRequest) {
-		if(cityRepository.findAll().count() == 0)
+	public Response getAllPaged(PageRequest pageRequest) {
+		if (cityRepository.findAll().count() == 0)
 			throw new WebApplicationException("Cities not found!", Response.Status.NOT_FOUND);
-		
+
 		return Response
 				.ok(cityRepository.findAll().page(Page.of(pageRequest.getPageNum(), pageRequest.getPageSize())).list())
 				.build();
 	}
-	
+
 	public Response getAllByStateId(Long id, PageRequest pageRequest) {
 		if (cityRepository.find("state.id", id).count() == 0)
 			throw new WebApplicationException("State not found!", Response.Status.NOT_FOUND);
-		
-		return Response
-				.ok(cityRepository.find("state.id", id).page(Page.of(pageRequest.getPageNum(), pageRequest.getPageSize())).list())
-				.build();
+
+		return Response.ok(cityRepository.find("state.id", id)
+				.page(Page.of(pageRequest.getPageNum(), pageRequest.getPageSize())).list()).build();
 	}
-	
+
 	public Response getAllByCityName(String name, PageRequest pageRequest) {
 		if (cityRepository.find("name", name).count() == 0)
 			throw new WebApplicationException("Name not found!", Response.Status.NOT_FOUND);
-			
+
 		PanacheQuery<City> city = cityRepository.find("name", name);
-		//city.stream().forEach(x -> x.setName(x.getName().substring(3)));
-	
-		return Response
-				.ok(city.page(Page.of(pageRequest.getPageNum(), pageRequest.getPageSize())).list())
-				.build();
+		// city.stream().forEach(x -> x.setName(x.getName().substring(3)));
+
+		return Response.ok(city.page(Page.of(pageRequest.getPageNum(), pageRequest.getPageSize())).list()).build();
 	}
 
 	public Response persist(City city) {
@@ -95,7 +92,5 @@ public class CityService {
 		cityRepository.deleteById(id);
 		return Response.noContent().build();
 	}
-
-
 
 }

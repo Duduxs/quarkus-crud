@@ -11,19 +11,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_city")
-public class City implements Serializable{
+public class City implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	
+
 	@OneToOne
 	private State state;
-	
+
 	public City() {
-		
+
 	}
 
 	public City(Long id, String name, State state) {
@@ -80,9 +80,5 @@ public class City implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
-	
 
 }
